@@ -14,7 +14,7 @@ http.request('/posts/1', 'get', {
 },{
   'proxy':'http://localhost:3002'
 }).then(resp => {
-  console.log(resp);
+  console.log('response:->', resp);
 },err=>{
   console.log(err);
 });
