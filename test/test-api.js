@@ -13,4 +13,8 @@ var http = new HttpRequest();
 http.request('http://localhost:3002/posts/1', 'get', {
 },{
   'proxy':'http://localhost:3002'
+}).then(resp => {
+  console.log(resp);
+},err=>{
+  console.log(err);
 });
