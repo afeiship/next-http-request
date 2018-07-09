@@ -10,11 +10,15 @@ var http = new HttpRequest({ hostname: 'localhost', port: 3002});
 // });
 
 
-http.request('/posts/1', 'get', {
-},{
-  'proxy':'http://localhost:3002'
-}).then(resp => {
+http.request('/posts/1', 'get').then(resp => {
   console.log('response:->', resp);
-},err=>{
-  console.log(err);
+},error=>{
+  console.log('error');
+});
+
+
+http.get('/posts/1').then(resp => {
+  console.log('response:->', resp);
+},error=>{
+  console.log('error');
 });
