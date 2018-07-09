@@ -1,5 +1,5 @@
 var HttpRequest = require('../src');
-var http = new HttpRequest();
+var http = new HttpRequest({ hostname: 'localhost', port: 3002});
 
 // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
 
@@ -10,7 +10,7 @@ var http = new HttpRequest();
 // });
 
 
-http.request('http://localhost:3002/posts/1', 'get', {
+http.request('/posts/1', 'get', {
 },{
   'proxy':'http://localhost:3002'
 }).then(resp => {
