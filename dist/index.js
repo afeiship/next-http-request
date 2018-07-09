@@ -19,7 +19,7 @@
 
 
   var NxHttpRequest = nx.declare('nx.HttpRequest', {
-    methods: {
+    statics: {
       request: function (inMethod, inUrl, inData, inOptions) {
         var dataStr = nx.param(inData);
         var urlObj = url.parse(inUrl);
