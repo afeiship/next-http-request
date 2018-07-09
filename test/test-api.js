@@ -1,5 +1,5 @@
 var HttpRequest = require('../src');
-var http = new HttpRequest({ hostname: 'localhost', port: 3002});
+var http = new HttpRequest({ hostname: 'localhost', port: 3002 });
 
 // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
 
@@ -9,16 +9,26 @@ var http = new HttpRequest({ hostname: 'localhost', port: 3002});
 //   password: '123123'
 // });
 
-
-http.request('/posts/1', 'get').then(resp => {
+// http:
+http.request('GET', 'http://localhost:3002/posts/1').then(resp => {
   console.log('response:->', resp);
-},error=>{
+}, error => {
   console.log('error');
 });
 
 
-http.get('/posts/1').then(resp => {
+// https:
+http.request('GET', 'https://api.nasa.gov/planetary/apod',{
+  'api_key':'DEMO_KEY'
+}).then(resp => {
   console.log('response:->', resp);
-},error=>{
+}, error => {
   console.log('error');
 });
+
+
+// http.get('/posts/1').then(resp => {
+//   console.log('response:->', resp);
+// },error=>{
+//   console.log('error');
+// });

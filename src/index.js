@@ -3,6 +3,8 @@
   var global = global || this || window || Function('return this')();
   var nx = global.nx || require('next-js-core2');
   var http = require('http');
+  var https = require('https');
+  var url = require('url');
   var iconv = require('iconv-lite');
 
   //status:
@@ -18,16 +20,17 @@
 
   var NxHttpRequest = nx.declare('nx.HttpRequest', {
     methods: {
-      init: function (inDefaults) {
-        this.defaults = inDefaults;
-      },
-      request: function (inPath, inType, inData, inOptions) {
+      request: function (inMethod, inUrl, inData, inOptions) {
         var dataStr = nx.param(inData);
-        var url = inType.toUpperCase() === 'GET' ? nx.join([ inPath, dataStr ], '?') : inPath;
-        var options = nx.mix({ path: url, method: inType }, this.defaults, inOptions);
+        var urlObj = url.parse(inUrl);
+        var _path = inMethod.toUpperCase() === 'GET' ? nx.join([urlObj.path, dataStr], '?') : urlObj.path;
+        var options = nx.mix(urlObj, { method: inMethod, path: _path }, inOptions);
+        var isSecure = urlObj.protocol === 'https:';
+        var context = isSecure ? https : http;
+
 
         return new Promise(function (resolve, reject) {
-          var req = http.request(options, function (res) {
+          var req = context.request(options, function (res) {
             var chunks = [];
             res.on(STATUS_DATA, function (chunk) {
               chunks.push(chunk);
@@ -51,12 +54,12 @@
           req.end();
         });
       },
-      'get,post,put,delete,options,head': function(inName){
+      'get,post,put,delete,options,head': function (inMethod) {
         var self = this;
-        return function (inPath,inData,inOptions) {
+        return function (inPath, inData, inOptions) {
           return self.request.call(
-            self,
-            inPath, inName, inData, inOptions
+            this,
+            inMethod, inPath, inData, inOptions
           );
         };
       }
