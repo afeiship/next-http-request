@@ -24,11 +24,10 @@
         var dataStr = nx.param(inData);
         var urlObj = url.parse(inUrl);
         var isGET = inMethod.toUpperCase() === 'GET';
+        var isSecure = urlObj.protocol === 'https:';
         var _path = isGET ? nx.join([urlObj.path, dataStr], '?') : urlObj.path;
         var options = nx.mix(urlObj, { method: inMethod, path: _path }, inOptions);
-        var isSecure = urlObj.protocol === 'https:';
         var context = isSecure ? https : http;
-
 
         return new Promise(function (resolve, reject) {
           var req = context.request(options, function (res) {
