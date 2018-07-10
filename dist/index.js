@@ -23,7 +23,8 @@
       request: function (inMethod, inUrl, inData, inOptions) {
         var dataStr = nx.param(inData);
         var urlObj = url.parse(inUrl);
-        var _path = inMethod.toUpperCase() === 'GET' ? nx.join([urlObj.path, dataStr], '?') : urlObj.path;
+        var isGET = inMethod.toUpperCase() === 'GET';
+        var _path = isGET ? nx.join([urlObj.path, dataStr], '?') : urlObj.path;
         var options = nx.mix(urlObj, { method: inMethod, path: _path }, inOptions);
         var isSecure = urlObj.protocol === 'https:';
         var context = isSecure ? https : http;
@@ -49,7 +50,7 @@
           });
 
           //FOR NOT GET:
-          req.write(dataStr);
+          !isGET && req.write(dataStr);
 
           req.end();
         });
