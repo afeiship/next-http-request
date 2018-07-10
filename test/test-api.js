@@ -1,15 +1,15 @@
-var httpRequest = require('../src');
+var NxHttpRequest = require('../src');
 
 // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
 
 
-// httpRequest.request('http://admin.treasurevision.cn/backend/', 'post', {
+// NxHttpRequest.request('http://admin.treasurevision.cn/backend/', 'post', {
 //   username: 'afei',
 //   password: '123123'
 // });
 
 // // http:
-// httpRequest.request('GET', 'http://localhost:3002/posts/1').then(resp => {
+// NxHttpRequest.request('GET', 'http://localhost:3002/posts/1').then(resp => {
 //   console.log('response:->', resp);
 // }, error => {
 //   console.log('error');
@@ -17,7 +17,7 @@ var httpRequest = require('../src');
 
 
 // // https:
-// httpRequest.request('GET', 'https://api.nasa.gov/planetary/apod',{
+// NxHttpRequest.request('GET', 'https://api.nasa.gov/planetary/apod',{
 //   'api_key':'DEMO_KEY'
 // }).then(resp => {
 //   console.log('response:->', resp);
@@ -26,7 +26,7 @@ var httpRequest = require('../src');
 // });
 
 
-httpRequest.get('http://localhost:3002/posts/1').then(resp => {
+NxHttpRequest.get('http://localhost:3002/posts/1').then(resp => {
   console.log('response:->', resp);
 },error=>{
   console.log('error');

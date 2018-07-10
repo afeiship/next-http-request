@@ -4,9 +4,9 @@
 
 ## usage:
 ```jsx
-var httpRequest = require('next-http-request');
+var NxHttpRequest = require('next-http-request');
 
-httpRequest.get('http://localhost:3002/posts/1').then(resp => {
+NxHttpRequest.get('http://localhost:3002/posts/1').then(resp => {
   console.log('response:->', resp);
 }, error=>{
   console.log('error');
