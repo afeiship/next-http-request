@@ -1,4 +1,4 @@
-var NxHttpRequest = require('../src');
+var NxHttpRequest = require('../src/next-http-request');
 
 // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
 
