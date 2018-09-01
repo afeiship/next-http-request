@@ -37,7 +37,7 @@
             }).on(STATUS_END, function () {
               if (res.statusCode === 200) {
                 result = iconv.decode(Buffer.concat(chunks), CHARSET);
-                resolve(result);
+                resolve(result, res);
               } else {
                 reject(res);
               }
