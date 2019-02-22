@@ -1,6 +1,10 @@
 # next-http-request
 > A node http request wrapper
 
+## install:
+```bash
+npm install -S afeiship/next-http-request --registry=https://registry.npm.taobao.org
+```
 
 ## usage:
 ```jsx
@@ -13,5 +17,3 @@ NxHttpRequest.get('http://localhost:3002/posts/1').then(resp => {
 });
 ```
 
-## todos:
-- [ ] unit test case
