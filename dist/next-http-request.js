@@ -19,11 +19,10 @@
   var NxHttpRequest = nx.declare('nx.HttpRequest', {
     statics: {
       request: function(inMethod, inUrl, inData, inOptions) {
-        var dataStr = nx.param(inData);
         var urlObj = url.parse(inUrl);
         var isGET = inMethod.toUpperCase() === 'GET';
         var isSecure = urlObj.protocol === 'https:';
-        var path = isGET ? nx.join([urlObj.path, dataStr], '?') : urlObj.path;
+        var path = isGET ? nx.join([urlObj.path, nx.param(inData)], '?') : urlObj.path;
         var options = nx.mix(urlObj, { method: inMethod, path: path }, inOptions);
         var context = isSecure ? https : http;
 
@@ -49,7 +48,7 @@
           });
 
           //FOR NOT GET:
-          !isGET && req.write(dataStr);
+          !isGET && req.write(inData);
 
           req.end();
         });
