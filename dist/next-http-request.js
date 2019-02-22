@@ -1,5 +1,4 @@
-(function () {
-
+(function() {
   var global = global || this || window || Function('return this')();
   var nx = global.nx || require('next-js-core2');
   var http = require('http');
@@ -17,10 +16,9 @@
   require('next-param');
   require('next-join');
 
-
   var NxHttpRequest = nx.declare('nx.HttpRequest', {
     statics: {
-      request: function (inMethod, inUrl, inData, inOptions) {
+      request: function(inMethod, inUrl, inData, inOptions) {
         var dataStr = nx.param(inData);
         var urlObj = url.parse(inUrl);
         var isGET = inMethod.toUpperCase() === 'GET';
@@ -29,22 +27,24 @@
         var options = nx.mix(urlObj, { method: inMethod, path: path }, inOptions);
         var context = isSecure ? https : http;
 
-        return new Promise(function (resolve, reject) {
-          var req = context.request(options, function (res) {
+        return new Promise(function(resolve, reject) {
+          var req = context.request(options, function(res) {
             var chunks = [];
-            res.on(STATUS_DATA, function (chunk) {
-              chunks.push(chunk);
-            }).on(STATUS_END, function () {
-              if (res.statusCode === 200) {
-                result = iconv.decode(Buffer.concat(chunks), CHARSET);
-                resolve(result, res);
-              } else {
-                reject(res);
-              }
-            });
+            res
+              .on(STATUS_DATA, function(chunk) {
+                chunks.push(chunk);
+              })
+              .on(STATUS_END, function() {
+                if (res.statusCode === 200) {
+                  result = iconv.decode(Buffer.concat(chunks), CHARSET);
+                  resolve(result, res);
+                } else {
+                  reject(res);
+                }
+              });
           });
 
-          req.on(STATUS_ERR, function (err) {
+          req.on(STATUS_ERR, function(err) {
             reject(err);
           });
 
@@ -54,21 +54,16 @@
           req.end();
         });
       },
-      'get,post,put,delete,options,head': function (inMethod) {
+      'get,post,put,delete,options,head': function(inMethod) {
         var self = this;
-        return function (inPath, inData, inOptions) {
-          return self.request.call(
-            this,
-            inMethod, inPath, inData, inOptions
-          );
+        return function(inPath, inData, inOptions) {
+          return self.request.call(this, inMethod, inPath, inData, inOptions);
         };
       }
     }
   });
 
-
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = NxHttpRequest;
   }
-
-}());
+})();

@@ -1,6 +1,6 @@
 {
   "name": "next-http-request",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A node http request wrapper",
   "homepage": "https://github.com/afeiship/next-http-request",
   "author": {
@@ -20,8 +20,9 @@
     "gulp-rename": "^1.2.2",
     "gulp-size": "^2.1.0",
     "gulp-uglify": "^2.1.2",
-    "yargs": "^4.7.1",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "prettier": "^1.16.4",
+    "yargs": "^4.7.1"
   },
   "dependencies": {
     "iconv-lite": "^0.4.23",
